@@ -1,0 +1,74 @@
+digraph G {
+  graph [ ratio = "auto", page = "100", compound =true, bgcolor = "#2e3e56" ];
+  node [ style = "filled", fillcolor = "#edad56", color = "#edad56", penwidth =3 ];
+  edge [ color = "#fcfcfc", penwidth =2, fontname = "helvetica Neue Ultra Light" ];
+subgraph "clusterInheritanceTokenDispenser" {
+  graph [ label = "InheritanceTokenDispenser", color = "#445773", fontcolor = "#f0f0f0", style = "rounded", bgcolor = "#445773" ];
+  "InheritanceTokenDispenser.<Constructor>" [ label = "<Constructor>", color = "#FF9797", fillcolor = "#FF9797" ];
+  "InheritanceTokenDispenser.distribute" [ label = "distribute", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "InheritanceTokenDispenser.calculateMonthlyDistribution" [ label = "calculateMonthlyDistribution" ];
+  "InheritanceTokenDispenser.isContract" [ label = "isContract" ];
+  "InheritanceTokenDispenser.IERC20" [ label = "IERC20" ];
+}
+
+subgraph "clusterTimeDateLibrary" {
+  graph [ label = "TimeDateLibrary", color = "#e8726d", fontcolor = "#f0f0f0", style = "rounded,dashed", bgcolor = "#3b4b63" ];
+  "TimeDateLibrary.timestampFromDate" [ label = "timestampFromDate" ];
+  "TimeDateLibrary.getYear" [ label = "getYear" ];
+  "TimeDateLibrary.getMonth" [ label = "getMonth" ];
+  "TimeDateLibrary.diffMonths" [ label = "diffMonths" ];
+}
+
+subgraph "clusterIERC20" {
+  graph [ label = "IERC20", color = "#e8726d", fontcolor = "#f0f0f0", style = "rounded,dashed", bgcolor = "#3b4b63" ];
+  "IERC20.transfer" [ label = "transfer" ];
+}
+
+  "InheritanceTokenDispenser.<Constructor>";
+  "InheritanceTokenDispenser.isContract";
+  "InheritanceTokenDispenser.IERC20";
+  "TimeDateLibrary.timestampFromDate";
+  "TimeDateLibrary.getYear";
+  "TimeDateLibrary.getMonth";
+  "InheritanceTokenDispenser.distribute";
+  "TimeDateLibrary.diffMonths";
+  "InheritanceTokenDispenser.calculateMonthlyDistribution";
+  "IERC20.transfer";
+  "InheritanceTokenDispenser.<Constructor>" -> "InheritanceTokenDispenser.isContract" [ color = "#1bc6a6" ];
+  "InheritanceTokenDispenser.<Constructor>" -> "InheritanceTokenDispenser.IERC20" [ color = "#1bc6a6" ];
+  "InheritanceTokenDispenser.<Constructor>" -> "TimeDateLibrary.timestampFromDate" [ color = "white" ];
+  "InheritanceTokenDispenser.<Constructor>" -> "TimeDateLibrary.getYear" [ color = "white" ];
+  "InheritanceTokenDispenser.<Constructor>" -> "TimeDateLibrary.getMonth" [ color = "white" ];
+  "InheritanceTokenDispenser.distribute" -> "TimeDateLibrary.getYear" [ color = "white" ];
+  "InheritanceTokenDispenser.distribute" -> "TimeDateLibrary.getMonth" [ color = "white" ];
+  "InheritanceTokenDispenser.distribute" -> "TimeDateLibrary.diffMonths" [ color = "white" ];
+  "InheritanceTokenDispenser.distribute" -> "InheritanceTokenDispenser.calculateMonthlyDistribution" [ color = "#1bc6a6" ];
+  "InheritanceTokenDispenser.distribute" -> "IERC20.transfer" [ color = "white" ];
+
+
+rankdir=LR
+node [shape=plaintext]
+subgraph cluster_01 { 
+label = "Legend";
+key [label=<<table border="0" cellpadding="2" cellspacing="0" cellborder="0">
+  <tr><td align="right" port="i1">Internal Call</td></tr>
+  <tr><td align="right" port="i2">External Call</td></tr>
+  <tr><td align="right" port="i3">Defined Contract</td></tr>
+  <tr><td align="right" port="i4">Undefined Contract</td></tr>
+  </table>>]
+key2 [label=<<table border="0" cellpadding="2" cellspacing="0" cellborder="0">
+  <tr><td port="i1">&nbsp;&nbsp;&nbsp;</td></tr>
+  <tr><td port="i2">&nbsp;&nbsp;&nbsp;</td></tr>
+  <tr><td port="i3" bgcolor="#445773">&nbsp;&nbsp;&nbsp;</td></tr>
+  <tr><td port="i4">
+    <table border="1" cellborder="0" cellspacing="0" cellpadding="7" color="#e8726d">
+      <tr>
+       <td></td>
+      </tr>
+     </table>
+  </td></tr>
+  </table>>]
+key:i1:e -> key2:i1:w [color="#1bc6a6"]
+key:i2:e -> key2:i2:w [color="white"]
+}
+}
